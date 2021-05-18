@@ -32,14 +32,22 @@ superseded-by:
 
 ## Summary
 
-Currently installer-provisioned installation(IPI) deployments do not support RAID and BIOS
-configuration, this proposal is dedicated to making IPI support RAID and BIOS configuration. 
+This proposal is dedicated to making installer-provisioned installation(IPI) deployments
+support RAID and BIOS configuration.
 
-The user fills in the bios and raid configuration in the `install-config.yaml` file. 
-For the master, pass the configuration to terraform-provider-ironic, for the worker, 
-pass the configuration to BMO. Currently BMO can already support raid configuration 
-and is advancing the configuration of bios, we will advance terraform-provider-ironic's 
-processing of raid and bios.
+Now we can add RAID configuration by modifying worker nodes' BMH definition file called
+`~/clusterconfigs/openshift/99_openshift-cluster-api_hosts- *.yaml` generated after executing
+`openshift-baremetal-install --dir ~/clusterconfigs create manifest`, so that worker nodes' raid
+configuration can be finished in the IPI process, as metal3 already supports the configuration of raid.
+
+However this method does not apply to the master node, for the master node's BMH definition file
+is processed by terraform provider for ironic.
+
+For unification, we want users to complete the RAID configuration of the master and worker nodes directly
+by modifying the install-config.yaml file.
+
+In addition to RAID, we hope that users can configure BIOS at the same time, now metal3 is advancing the 
+configuration of BIOS. We will realize the configuration of RAID and BIOS on [terraform-provider-ironic](https://github.com/openshift-metal3/terraform-provider-ironic).
 
 ## Motivation
 
@@ -48,7 +56,8 @@ setting of RAID and BIOS for servers is a common need.
 
 ### Goals
 
-Allow users to config RAID/BIOS in IPI process.
+- Allow users to config RAID/BIOS in `install-config.yaml`
+- terraform-provider-ironic can process the configuration of RAID and BIOS.
 
 ### Non-Goals
 
@@ -56,7 +65,7 @@ TBD
 
 ## Proposal
 
-Two new fields `RAID` and `BIOS` will be added to `platform.baremetal.hosts` in the `install-config.yaml` file.
+Two new fields `RAID` and `BIOS` will be added to `platform.baremetal.hosts` in the [install-config.yaml](https://github.com/openshift/installer/blob/master/data/data/install.openshift.io_installconfigs.yaml) file.
 
 ### User Stories
 
@@ -64,9 +73,7 @@ As a user, I want to config the raid and bios of BMH in the IPI process.
 
 ### Implementation Details/Notes/Constraints [optional]
 
-What are the caveats to the implementation? What are some important details that
-didn't come across above. Go in to as much detail as necessary here. This might
-be a good place to talk about core concepts and how they relate.
+The value of `RAID` and `BIOS` fields will be parsed to manifests,
 
 ### Risks and Mitigations
 
