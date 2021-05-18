@@ -1,5 +1,5 @@
 ---
-title: Baremetal config raid and bios
+title: Config-raid-and-bios-for-Baremetal-IPI-deployments
 authors:
   - "@janedoe"
 reviewers:
@@ -10,16 +10,16 @@ approvers:
   - "@oscardoe"
 creation-date: yyyy-mm-dd
 last-updated: yyyy-mm-dd
-status: provisional|implementable|implemented|deferred|rejected|withdrawn|replaced|informational
+status: provisional
 see-also:
-  - "/enhancements/this-other-neat-thing.md"
+  - 
 replaces:
-  - "/enhancements/that-less-than-great-idea.md"
+  -
 superseded-by:
-  - "/enhancements/our-past-effort.md"
+  -　＃３０２
 ---
 
-# Baremetal config raid and bios
+# Config raid　and　bios　for　Baremetal　IPI deployments
 
 ## Release Signoff Checklist
 
@@ -56,12 +56,12 @@ setting of RAID and BIOS for servers is a common need.
 
 ### Goals
 
-- Allow users to config RAID/BIOS in `install-config.yaml`.
-- terraform-provider-ironic can process the configuration of RAID and BIOS.
+- Allow users to config RAID and BIOS in `install-config.yaml`.
+- IPI 反映配置
 
 ### Non-Goals
 
-TBD
+- vendor BIOS 特定的选项（*）
 
 ## Proposal
 
@@ -215,23 +215,18 @@ enhancement:
 
 ## Implementation History
 
-Major milestones in the life cycle of a proposal should be tracked in `Implementation
-History`.
+NONE
 
 ## Drawbacks
 
-The idea is to find the best form of an argument why this enhancement should _not_ be implemented.
+IPI　步骤增多　时间加长
 
 ## Alternatives
 
-Similar to the `Drawbacks` section the `Alternatives` section is used to
-highlight and record other possible approaches to delivering the value proposed
-by an enhancement.
+其他方法　优缺点
+Now we can add RAID configuration by modifying worker nodes' BMH definition file called
+`~/clusterconfigs/openshift/99_openshift-cluster-api_hosts- *.yaml` generated after executing
+`openshift-baremetal-install --dir ~/clusterconfigs create manifest`, so that worker nodes' raid
+configuration can be finished in the IPI process, as metal3 already supports the configuration of raid.
 
-## Infrastructure Needed [optional]
 
-Use this section if you need things from the project. Examples include a new
-subproject, repos requested, github details, and/or testing infrastructure.
-
-Listing these here allows the community to get the process for these resources
-started right away.
