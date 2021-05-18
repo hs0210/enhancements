@@ -56,7 +56,7 @@ setting of RAID and BIOS for servers is a common need.
 
 ### Goals
 
-- Allow users to config RAID/BIOS in `install-config.yaml`
+- Allow users to config RAID/BIOS in `install-config.yaml`.
 - terraform-provider-ironic can process the configuration of RAID and BIOS.
 
 ### Non-Goals
