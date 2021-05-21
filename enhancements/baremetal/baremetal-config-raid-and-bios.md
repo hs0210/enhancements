@@ -37,8 +37,8 @@ for both master and worker nodes.
 ## Motivation
 
 As mentioned above, currently IPI deployments do not support the configuration of RAID and BIOS, if users want to
-configure RAID and BIOS, they need to wait for the end of IPI deployments to re-create the node by modifying the BMH
-file to configure RAID and BIOS(The configuration of BIOS depends on the merge of [#302](https://github.com/metal3-io/baremetal-operator/pull/302)).
+configure RAID and BIOS, they need to wait for the end of IPI deployments to re-create the node by modifying the **BMH**
+to configure RAID and BIOS(The configuration of BIOS depends on the merge of [#302](https://github.com/metal3-io/baremetal-operator/pull/302)).
 This brings too much trouble for users.
 
 ### Goals
@@ -55,9 +55,9 @@ This brings too much trouble for users.
 The configuration of RAID and BIOS is finally handed over to Ironic during the IPI deployments.
 1. Add two new fields *raid* and *firmware* to *platform.baremetal.hosts* in the [install-config.yaml](https://github.com/openshift/installer/blob/master/data/data/install.openshift.io_installconfigs.yaml) file.
 2. Openshift Installer process the field contents into manifests.
-3. [Terraform-provider-ironic](https://github.com/openshift-metal3/terraform-provider-ironic) get the
-configuration of RAID and BIOS for master nodes and then pass it to Ironic.([Baremetal Operator](https://github.com/metal3-io/baremetal-operator)
-has supported the process of RAID and BIOS)
+3. [Terraform-provider-ironic](https://github.com/openshift-metal3/terraform-provider-ironic) gets the
+configuration of RAID and BIOS for master nodes and then passes it to Ironic([Baremetal Operator(BMO)](https://github.com/metal3-io/baremetal-operator)
+has supported the process of RAID and BIOS for worker nodes).
 
 ### User Stories
 
@@ -67,7 +67,7 @@ With the addition of this feature, the users can configure RAID and BIOS in IPI 
 
 #### Add two fields
 
-New `platform.baremetal.hosts` fields called `raid` and `firmware`.
+New *platform.baremetal.hosts* fields called *raid* and *firmware*.
 
 ```yaml
 platform:
@@ -77,16 +77,16 @@ platform:
       - name: master-0
         role: master
         bmc:
-          address: IpAddress
+          address: IPAddress
           username: UserName
           password: PassWord
-        bootMACAddress: MacAddress
-        raid: RaidConfig
-        firmware: BiosConfig
+        bootMACAddress: MACAddress
+        raid: RAIDConfig
+        firmware: BIOSConfig
 ```
 
-RAID feature has been implemented in **BMO**, so the *raid* field here is same as the **[BMH]((https://github.com/metal3-io/baremetal-operator/blob/399f5ef7ee3831014c1425250bc4fa49641a8709/config/crd/bases/metal3.io_baremetalhosts.yaml))**.
-The *firmware* field is same as the *spec.firmware* field in **BMH** which is been advancing by [#302](https://github.com/metal3-io/baremetal-operator/pull/302).
+RAID feature has been implemented in **BMO**, so the *raid* field here is the same as the [BMH]((https://github.com/metal3-io/baremetal-operator/blob/399f5ef7ee3831014c1425250bc4fa49641a8709/config/crd/bases/metal3.io_baremetalhosts.yaml)).
+The *firmware* field is the same as the *spec.firmware* field in **BMH** which is been advancing by [#302](https://github.com/metal3-io/baremetal-operator/pull/302).
 
 #### Process the fields in installer
 
@@ -130,8 +130,8 @@ This will increase the number of steps in IPI deployment and take longer.
 ## Alternatives
 
 The users can add RAID and BIOS configuration by modifying worker nodes' **BMH** called
-`~/clusterconfigs/openshift/99_openshift-cluster-api_hosts- *.yaml` generated after executing
+**~/clusterconfigs/openshift/99_openshift-cluster-api_hosts- *.yaml** generated after executing
 `openshift-baremetal-install --dir ~/clusterconfigs create manifest`, so that the configuration
-of RAID and BIOS for worker nodes can be done in the IPI deployments.
+of RAID and BIOS for worker nodes can be done during the IPI deployments.
 
 Using this approach needn't the modification of source code, but this approach is limited to worker nodes.
