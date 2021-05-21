@@ -30,9 +30,9 @@ superseded-by:
 
 ## Summary
 
-Currently, IPI does not support the configuration of RAID and BIOS. The proposal provides a feature to
-implement the configuration of RAID and BIOS during the installer-provisioned installation(IPI) deployments
-for both master and worker nodes.
+Currently, the installer-provisioned installation(IPI) deployments do not support the configuration of RAID and BIOS.
+The proposal provides a feature to implement the configuration of RAID and BIOS during the IPI deployments for both
+master and worker nodes.
 
 ## Motivation
 
@@ -90,7 +90,7 @@ The *firmware* field is the same as the *spec.firmware* field in **BMH** which i
 
 #### Process the fields in installer
 
-For master nodes, call the `BuildTargetRAIDCfg` method in BMO to process the RAID field into *target_raid_config*, and finally write *target_raid_config* into the ***terraform.baremetal.auto.tfvars.json*** file.
+For master nodes, call the `BuildTargetRAIDCfg` method in **BMO** to process the *raid* field into *target_raid_config*, and finally write *target_raid_config* into the ***terraform.baremetal.auto.tfvars.json*** file.
 
 For worker nodes, copy *raid* and *firmware* field to **BMH**.
 
@@ -108,7 +108,7 @@ TBD
 ### Test Plan
 
 - Unit tests for determining the configuration of RAID and BIOS passed to Ironic meeting expectations.
-- e2e tests for determining the configuration of RAID and BIOS configured in the IPI deployments.
+- e2e tests for determining the configuration of RAID and BIOS configured during the IPI deployments.
 
 ### Graduation Criteria
 
@@ -125,12 +125,12 @@ NONE
 
 ## Drawbacks
 
-This will increase the number of steps in IPI deployment and take longer.
+This will increase the number of steps in IPI deployments and take longer.
 
 ## Alternatives
 
 The users can add RAID and BIOS configuration by modifying worker nodes' **BMH** called
-**~/clusterconfigs/openshift/99_openshift-cluster-api_hosts- *.yaml** generated after executing
+**~/clusterconfigs/openshift/99_openshift-cluster-api_hosts- \*.yaml** generated after executing
 `openshift-baremetal-install --dir ~/clusterconfigs create manifest`, so that the configuration
 of RAID and BIOS for worker nodes can be done during the IPI deployments.
 
