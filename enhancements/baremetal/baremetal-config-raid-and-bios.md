@@ -38,7 +38,7 @@ master and worker nodes.
 
 As mentioned above, currently IPI deployments do not support the configuration of RAID and BIOS, if users want to
 configure RAID and BIOS, they need to wait for the end of IPI deployments to re-create the node by modifying the **BMH**
-to configure RAID and BIOS(The configuration of BIOS depends on the merge of [#302](https://github.com/metal3-io/baremetal-operator/pull/302)).
+(The configuration of BIOS depends on the merge of [#302](https://github.com/metal3-io/baremetal-operator/pull/302)).
 This brings too much trouble for users.
 
 ### Goals
