@@ -1,13 +1,16 @@
 ---
 title: Config-RAID-and-BIOS-for-Baremetal-IPI-deployments
 authors:
+  - "@fenggw-fnst"
+  - "@Hellcatlk"
   - "@hs0210"
+  - "@zhouhao3"
 reviewers:
   - TBD
 approvers:
   - TBD
 creation-date: 2021-05-18
-last-updated: yyyy-mm-dd
+last-updated: 2021-05-24
 status: provisional
 see-also:
   - 
@@ -109,8 +112,7 @@ TBD
 
 ### Graduation Criteria
 
-- Supporting the configuration of RAID and BIOS for worker nodes is target for GA in 4.9.
-- Supporting the configuration of RAID and BIOS for master nodes is target for GA in 4.10.
+TBD
 
 ### Upgrade / Downgrade Strategy
 
