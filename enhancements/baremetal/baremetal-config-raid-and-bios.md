@@ -13,7 +13,7 @@ creation-date: 2021-05-18
 last-updated: 2021-05-24
 status: provisional
 see-also:
-  - 
+  -
 replaces:
   -
 superseded-by:
@@ -85,7 +85,7 @@ platform:
         firmware: BIOSConfig
 ```
 
-RAID feature has been implemented in **BMO**, so the *raid* field here is the same as the [BMH]((https://github.com/metal3-io/baremetal-operator/blob/399f5ef7ee3831014c1425250bc4fa49641a8709/config/crd/bases/metal3.io_baremetalhosts.yaml)).
+RAID feature has been implemented in **BMO**, so the *raid* field here is the same as the [BMH](https://github.com/metal3-io/baremetal-operator/blob/399f5ef7ee3831014c1425250bc4fa49641a8709/config/crd/bases/metal3.io_baremetalhosts.yaml).
 The *firmware* field is the same as the *spec.firmware* field in **BMH** which is been advancing by [#302](https://github.com/metal3-io/baremetal-operator/pull/302).
 
 #### Process the fields in installer
@@ -96,7 +96,7 @@ For worker nodes, copy *raid* and *firmware* field to **BMH**.
 
 #### Process the fields in terraform-provider-ironic
 
-Add *target_raid_config* and *bios_settings* fields to terraform-provider-ironic API, 
+Add *target_raid_config* and *bios_settings* fields to terraform-provider-ironic API,
 process the two fields by [manual cleaning](https://docs.openstack.org/ironic/latest/admin/cleaning.html#manual-cleaning).
 
 ### Risks and Mitigations
